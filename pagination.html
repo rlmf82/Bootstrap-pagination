@@ -1,0 +1,152 @@
+<html>
+	<head id="patternlab-head">
+    
+    <title id="title">Pagination Example</title>
+    <meta charset="UTF-8">
+    
+    <!-- load the pattern lab css -->
+	<link rel="stylesheet" href="bootstrap.css" media="all">
+	<script src="jquery.min.js"></script>
+	
+	
+	<style>
+		.active{
+			background-color:yellow;
+		}
+	</style>
+  </head>
+<body>	
+	<div class="background-wrapper" >
+    <div class="pagination-container 090920191114">
+        <div id="page1" data-page="1" class="container pt-40 pb-40" style="display:inline">
+            <h5> #page1 </h5>
+            <p>Rafael Farias</p>
+        </div>
+        <!-- PAGE -->
+        <div id="page2" data-page="2" class="container pt-40 pb-40" style="display:none">
+            <h5> #page2 </h5>
+            <p>Rafael Farias</p>
+        </div>
+        <!-- PAGE -->
+        <div id="page3" data-page="3" class="container pt-40 pb-40" style="display:none">
+            <h5> #page3 </h5>
+            <p>Rafael Farias</p>
+        </div>
+		<div class="row">
+            <div class="col-12 text-center">
+                <!-- M36 -->
+                <div class="pagination_wrapper pt-60px pb-60px">
+                    <ul class="pagination">
+                        <li class="page-item-back"> <a class="btn-back btn btn-secondary" href="#" > back </a> </li>
+                        <li class="active" data-page="1"> <a class="link" href="#">1</a> </li>
+                        <li data-page="2"> <a class="link" href="#">2</a> </li>
+						<li data-page="3"> <a class="link" href="#">3</a> </li>
+                        <li class="page-item-next"> <a class="btn-next btn btn-secondary" href="#" > next </a> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	<br><br>
+	<div class="pagination-container 090920191113">
+        <div id="page1" data-page="1" class="container pt-40 pb-40" style="display:inline">
+            <h5> #page1 </h5>
+            <p>Flávia Farias</p>
+        </div>
+        <!-- PAGE -->
+        <div id="page2" data-page="2" class="container pt-40 pb-40" style="display:none">
+            <h5> #page2 </h5>
+            <p>Flávia Farias</p>
+        </div>
+        <!-- PAGE -->
+        <div id="page3" data-page="3" class="container pt-40 pb-40" style="display:none">
+            <h5> #page3 </h5>
+            <p>Flávia Farias</p>
+        </div>
+		<div class="row">
+            <div class="col-12 text-center">
+                <!-- M36 -->
+                <div class="pagination_wrapper pt-60px pb-60px">
+                    <ul class="pagination">
+                        <li class="page-item-back"> <a class="btn-back btn btn-secondary" href="#" > back </a> </li>
+                        <li class="active" data-page="1"> <a class="link" href="#">1</a> </li>
+                        <li data-page="2"> <a class="link" href="#">2</a> </li>
+						<li data-page="3"> <a class="link" href="#">3</a> </li>
+                        <li class="page-item-next"> <a class="btn-next btn btn-secondary" href="#" > next </a> </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+$( ".page-item-back a" ).click(function(event) {
+	var paginationClass = $(event.target).parents('.pagination-container').attr("class").replace(" ",".");
+	var currentPage = $("."+paginationClass+" div[data-page]:visible").data('page');
+
+	if (parseInt(currentPage) > 1) {
+		
+		var previousPage = currentPage - 1;
+		
+		console.log($("."+paginationClass).find("#page"+currentPage).html());
+		console.log($("."+paginationClass).find("#page"+previousPage).html());
+
+		$("."+paginationClass).find("#page"+currentPage).hide()
+		$("."+paginationClass).find("#page"+previousPage).show()
+		
+		$("."+paginationClass+" li[data-page="+currentPage+"]").removeClass('active');
+		$("."+paginationClass+" li[data-page="+previousPage+"]").addClass('active');
+	}
+});
+
+$(".page-item-next a" ).click(function(event) {
+	var paginationClass = $(event.target).parents('.pagination-container').attr("class").replace(" ",".");
+	var selectedPage = $(this).html();
+	var currentPage = $("."+paginationClass+" div[data-page]:visible").data('page');
+	
+	var numberLis = $("."+paginationClass).find("ul li").length - 2;
+	
+	if (parseInt(currentPage) < numberLis) {
+			var nextPage = currentPage + 1;
+			
+			console.log($("."+paginationClass).find("#page"+currentPage).html());
+			console.log($("."+paginationClass).find("#page"+nextPage).html());
+
+			$("."+paginationClass).find("#page"+currentPage).hide()
+			$("."+paginationClass).find("#page"+nextPage).show()
+			
+			$("."+paginationClass+" li[data-page="+currentPage+"]").removeClass('active');
+			$("."+paginationClass+" li[data-page="+nextPage+"]").addClass('active');
+			
+			console.log($("."+paginationClass).html());
+			console.log($("."+paginationClass).find(".masonry-grid").html());
+			
+			
+			
+        }
+});
+
+$( "ul.pagination a" ).not($(".page-item-back a")).not($(".page-item-next a")).click(function(event) {
+	var paginationClass = $(event.target).parents('.pagination-container').attr("class").replace(" ",".");
+	var selectedPage = $(this).html();
+	var currentPage = $("."+paginationClass+" div[data-page]:visible").data('page');
+	
+	if (parseInt(selectedPage) !== parseInt(currentPage) ) {
+            $("#page"+currentPage).hide();
+			$("#page"+selectedPage).show();
+			
+			$("."+paginationClass).find("#page"+currentPage).hide()
+			$("."+paginationClass).find("#page"+selectedPage).show()
+			
+			$("."+paginationClass+" li[data-page="+currentPage+"]").removeClass('active');
+			$("."+paginationClass+" li[data-page="+selectedPage+"]").addClass('active');
+        }
+});
+
+</script>
+</body>
+</html>
